@@ -2,6 +2,7 @@
 
 m{}-{} -> margin
 p{}-{} -> padding
+g      ->
 
 
 # How to create a react app?
@@ -15,8 +16,15 @@ const ComponentName = ()=>{
   return (<>...</>)
 }
 
-export default ComponentName;
+export default ComponentName; // one export default per file
 ```
+`import ComponentName for './path'`
+
+```jsx
+export const ComponentName ->
+import {ComponentName} for './path'
+```
+
 
 ```jsx
 // how to use it?
