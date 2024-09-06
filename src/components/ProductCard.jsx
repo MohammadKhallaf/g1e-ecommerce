@@ -5,17 +5,16 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-function ProductCard() {
+function ProductCard({ title, img, desc, price }) {
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="https://placehold.co/600x400" />
+      <Card.Img variant="top" src={img} />
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title>{title}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {desc} - {price}EGP
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">Details</Button>
       </Card.Body>
     </Card>
   );

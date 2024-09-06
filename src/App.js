@@ -10,41 +10,21 @@ import Navbar from "react-bootstrap/Navbar";
 import CustomNavbar from "./components/CustomNavbar";
 import "./App.css";
 import ProductCard from "./components/ProductCard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProductList from "./pages/ProductList";
+import CartPage from "./pages/CartPage";
 
-const productList = [
-  {
-    title: "AC",
-    price: 500,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Fan",
-    price: 50,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Mobile",
-    price: 5000,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-];
 function App() {
   return (
-    <div className="App">
-      <CustomNavbar />
-      <Container className="pt-5">
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <Col key={idx}>
-              <ProductCard />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <CustomNavbar />
+        <Routes>
+          <Route path="cart" element={<CartPage />} />
+          <Route path="/" element={<ProductList />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
