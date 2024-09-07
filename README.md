@@ -40,6 +40,9 @@ import {ComponentName} for './path'
 ``
 
 
+# in arrays
+- key
+
 # How to use react-bootstrap
 1. install `npm install react-bootstrap bootstrap`
 2. add the css file in `index.js` --> `import 'bootstrap/dist/css/bootstrap.min.css';`
@@ -52,3 +55,11 @@ import {ComponentName} for './path'
 - ```jsx
 <BrowserRouter>
   </BrowserRouter>```
+
+
+# properties
+- as={Component} ..
+
+# VS shortcuts
+- remove unused imports :
+  `shift + alt + O`

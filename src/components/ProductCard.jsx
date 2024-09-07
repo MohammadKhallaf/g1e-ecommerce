@@ -1,11 +1,12 @@
+import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import Stack from "react-bootstrap/Stack";
+import { CartContext } from "../store/CartContext";
 
 function ProductCard({ title, img, desc, price }) {
+  const { cart, addToCart } = useContext(CartContext);
+
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Img variant="top" src={img} />
@@ -14,7 +15,18 @@ function ProductCard({ title, img, desc, price }) {
         <Card.Text>
           {desc} - {price}EGP
         </Card.Text>
-        <Button variant="primary">Details</Button>
+        <Stack gap={2}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              const productDetails = { title, img, desc, price };
+              addToCart(productDetails);
+            }}
+          >
+            Add to cart
+          </Button>
+          <Button variant="secondary">Details</Button>
+        </Stack>
       </Card.Body>
     </Card>
   );

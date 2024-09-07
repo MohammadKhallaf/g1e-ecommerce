@@ -2,33 +2,16 @@ import Image from "react-bootstrap/Image";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
-
-const productsList = [
-  {
-    title: "AC",
-    price: 500,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Fan",
-    price: 50,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Mobile",
-    price: 5000,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-];
+import { useContext } from "react";
+import { CartContext } from "../store/CartContext";
 
 function CartPage() {
+  const { cart, addToCart } = useContext(CartContext);
+
   return (
     <Container className="pt-5">
       <ListGroup as="ol" className="gap-4">
-        {productsList.map((item, idx, arr) => (
+        {cart.map((item, idx, arr) => (
           <ListGroup.Item
             key={idx}
             as="li"
@@ -40,7 +23,10 @@ function CartPage() {
                 className="square-img object-fit-cover border rounded-circle"
               />
             </div>
-            <div className="fs-2 fw-bolder me-auto">{item.title}</div>
+            <div className="fs-2 fw-bolder me-auto">
+              {item.title}{" "}
+              <span className="fs-4 fw-normal">x{item.quantity ?? 0}</span>
+            </div>
 
             <div className="mt-auto fs-4 fw-semibold p-1">{item.price}</div>
           </ListGroup.Item>
