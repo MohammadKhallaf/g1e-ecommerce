@@ -49,7 +49,7 @@ import {ComponentName} for './path'
 3. import your component when needed
 
 
-
+----------------- 07 sept.
 # Navigating
 - react router dom -> install
 - ```jsx
@@ -63,3 +63,56 @@ import {ComponentName} for './path'
 # VS shortcuts
 - remove unused imports :
   `shift + alt + O`
+
+
+# browser storage
+- localStorage
+  - `localStorage.setItem("key",value (must be string))
+
+# component life cycle
+1 - initial render (1st render) -> []
+```js
+useEffect(()=>{
+  // code block
+},[])
+```
+2 - update (in state) -> [state]
+```js
+useEffect(()=>{
+  // code block
+  
+},[state])
+```
+3 - destroy | un-amount
+```js
+useEffect(()=>{
+
+  return ()=>{
+    // code will run on destroy
+    // clean
+  }
+},[])
+```
+
+4 - on each render
+```js
+useEffect(()=>{
+// code block
+})
+```
+# optimization techniques
+- **useMemo** -> value
+  - useMemo(()=>{ return value},[])
+- **useCallback** -> function
+     - useCallback(()=>{ },[])
+- memo -> memo(React Component) -> listen to the changes in the prop
+
+
+
+- read <- state
+- stringify
+- write -> local storage
+
+- read <- local storage
+- parse
+- write -> state
