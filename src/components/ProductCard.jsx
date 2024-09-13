@@ -3,8 +3,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Stack from "react-bootstrap/Stack";
 import { CartContext } from "../store/CartContext";
+import { Link } from "react-router-dom";
 
-function ProductCard({ title, img, desc, price }) {
+function ProductCard({ id, title, img, desc, price }) {
   const { cart, wishlist, addToCart, addToWishlist, removeFromWishlist } =
     useContext(CartContext);
 
@@ -59,7 +60,9 @@ function ProductCard({ title, img, desc, price }) {
             </Button>
           )}
 
-          <Button variant="secondary">Details</Button>
+          <Button variant="secondary" as={Link} to={`product/${id}`}>
+            Details
+          </Button>
         </Stack>
       </Card.Body>
     </Card>

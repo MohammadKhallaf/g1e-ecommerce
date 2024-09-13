@@ -1,26 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
-
-const productsList = [
-  {
-    title: "AC",
-    price: 500,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Fan",
-    price: 50,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-  {
-    title: "Mobile",
-    price: 5000,
-    desc: "lorem",
-    img: "https://placehold.co/600x400",
-  },
-];
+import { productsList } from "../list";
 
 function ProductList() {
   return (
@@ -29,6 +9,7 @@ function ProductList() {
         {productsList.map((item, idx, arr) => (
           <Col key={idx}>
             <ProductCard
+              id={item.id}
               title={item.title}
               img={item.img}
               price={item.price}

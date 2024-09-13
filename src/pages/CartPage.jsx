@@ -19,10 +19,16 @@ function CartPage() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   const sum = useMemo(() => {
+    // useMemo -> return value
     return cart.reduce((prev, item) => {
       return prev + item.price * item.quantity;
     }, 0);
   }, [cart]);
+
+  // useMemo -> value
+  // useCallback -> function
+  // same concept
+  // return function
 
   const renderList = useMemo(() => {
     return cart.map((item, idx, arr) => (

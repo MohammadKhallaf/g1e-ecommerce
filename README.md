@@ -133,3 +133,12 @@ useEffect(()=>{
 1. create state 
 - add 
 - remove
+
+## Optimization
+
+## UUID
+
+
+## Dynamic Route
+- define `<Route path=":id" element={<ReactComponent/>}`
+- use / read dynamic value (id) -> `useParams` -> `params.id`

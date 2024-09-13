@@ -7,6 +7,7 @@ import { CartContext } from "./store/CartContext";
 import "./App.css";
 import { useEffect, useState } from "react";
 import WishlistPage from "./pages/WishlistPage";
+import ProductDetails from "./components/ProductDetails";
 // cart context
 
 // change the local storage data
@@ -141,6 +142,7 @@ function App() {
         <div className="App">
           <CustomNavbar />
           <Routes>
+            <Route path="product/:id" element={<ProductDetails />} />
             <Route path="wishlist" element={<WishlistPage />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="/" element={<ProductList />} />
