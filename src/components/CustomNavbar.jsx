@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../store/CartContext";
 
 function CustomNavbar() {
-  const { cart, addToCart } = useContext(CartContext);
+  const { cart, addToCart, wishlist } = useContext(CartContext);
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
@@ -20,7 +20,7 @@ function CustomNavbar() {
           <Nav.Link as={Link} to="wishlist">
             Wishlist{" "}
             <Badge bg="danger" text="dark">
-              10
+              {wishlist.length}
             </Badge>
           </Nav.Link>
           <Nav.Link as={Link} to="cart">

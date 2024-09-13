@@ -108,11 +108,28 @@ useEffect(()=>{
 - memo -> memo(React Component) -> listen to the changes in the prop
 
 
+# Local Storage data <-->
+
+# write to local storage
 
 - read <- state
-- stringify
+- stringify -> convert to string `JSON.strigify(data)`
 - write -> local storage
+`localStorage.setItem("key",convertedData)`
 
-- read <- local storage
-- parse
+
+# read from local storage
+- read <- local storage `localStorage.getItem("key")`
+- parse `JSON.parse(data)`
 - write -> state
+
+
+
+---
+## 13 Sept.
+
+### Wishlist functionality
+-> state 
+1. create state 
+- add 
+- remove

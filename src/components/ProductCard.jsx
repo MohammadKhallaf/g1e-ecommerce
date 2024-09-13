@@ -5,7 +5,19 @@ import Stack from "react-bootstrap/Stack";
 import { CartContext } from "../store/CartContext";
 
 function ProductCard({ title, img, desc, price }) {
-  const { cart, addToCart } = useContext(CartContext);
+  const { cart, wishlist, addToCart, addToWishlist, removeFromWishlist } =
+    useContext(CartContext);
+
+  // 1. wishlist -> product ??
+  const checkIfInWishlist = () => {
+    const idx = wishlist.findIndex((item) => {
+      return item.title === title;
+    });
+    // result the idx -> idx>-1
+    return idx > -1; // this means the product is in the wishlist
+  };
+
+  // one line condition
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -17,7 +29,7 @@ function ProductCard({ title, img, desc, price }) {
         </Card.Text>
         <Stack gap={2}>
           <Button
-            variant="primary"
+            variant="success"
             onClick={() => {
               const productDetails = { title, img, desc, price };
               addToCart(productDetails);
@@ -25,6 +37,28 @@ function ProductCard({ title, img, desc, price }) {
           >
             Add to cart
           </Button>
+          {checkIfInWishlist() ? (
+            <Button
+              variant="danger"
+              onClick={() => {
+                const productDetails = { title, img, desc, price };
+                removeFromWishlist(productDetails);
+              }}
+            >
+              Remove from wishlist
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              onClick={() => {
+                const productDetails = { title, img, desc, price };
+                addToWishlist(productDetails);
+              }}
+            >
+              Add to wishlist
+            </Button>
+          )}
+
           <Button variant="secondary">Details</Button>
         </Stack>
       </Card.Body>
