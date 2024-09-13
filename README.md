@@ -142,3 +142,8 @@ useEffect(()=>{
 ## Dynamic Route
 - define `<Route path=":id" element={<ReactComponent/>}`
 - use / read dynamic value (id) -> `useParams` -> `params.id`
+
+---
+# 13 sept task
+1- fix add comment
+2-
