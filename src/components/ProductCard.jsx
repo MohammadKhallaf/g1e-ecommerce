@@ -4,8 +4,9 @@ import Card from "react-bootstrap/Card";
 import Stack from "react-bootstrap/Stack";
 import { CartContext } from "../store/CartContext";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
-function ProductCard({ id, title, img, desc, price }) {
+function ProductCard({ _id, title, img, desc, price }) {
   const { cart, wishlist, addToCart, addToWishlist, removeFromWishlist } =
     useContext(CartContext);
 
@@ -34,6 +35,7 @@ function ProductCard({ id, title, img, desc, price }) {
             onClick={() => {
               const productDetails = { title, img, desc, price };
               addToCart(productDetails);
+              toast.success("Product Added!");
             }}
           >
             Add to cart
@@ -60,7 +62,7 @@ function ProductCard({ id, title, img, desc, price }) {
             </Button>
           )}
 
-          <Button variant="secondary" as={Link} to={`product/${id}`}>
+          <Button variant="secondary" as={Link} to={`product/${_id}`}>
             Details
           </Button>
         </Stack>

@@ -1,15 +1,17 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
-import { productsList } from "../list";
+import { useContext } from "react";
+import { ProductsContext } from "../store/ProductsContext";
 
 function ProductList() {
+  const { products } = useContext(ProductsContext);
   return (
     <Container className="pt-5">
       <Row xs={1} md={2} lg={3} className="g-4">
-        {productsList.map((item, idx, arr) => (
-          <Col key={idx}>
+        {products.map((item, idx, arr) => (
+          <Col key={item._id}>
             <ProductCard
-              id={item.id}
+              _id={item._id}
               title={item.title}
               img={item.img}
               price={item.price}

@@ -4,21 +4,50 @@ import Form from "react-bootstrap/Form";
 
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
-import { productsList } from "../list";
+
 import { Container, Stack } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ProductsContext } from "../store/ProductsContext";
 
 function ProductDetails() {
   // read the parameter from the url
   const params = useParams();
   const [comment, setComment] = useState("");
+  const { products, updateProducts } = useContext(ProductsContext);
 
   // data - included -> data
   // product list -> get one item from the list
   // -> product id
-  const productObj = productsList.find((item) => {
-    return item.id === params.id;
+  const productIdx = products.findIndex((item) => {
+    return item._id === params.id;
   });
+  console.log(params.id, products, productIdx);
+  const productObj = products[productIdx];
+
+  const addComment = () => {
+    // new object -> comment
+    // set state -> new array
+
+    const commentArray = productObj.comment
+      ? [
+          ...productObj.comment,
+          {
+            title: comment,
+            date: new Date(),
+          },
+        ]
+      : [
+          {
+            title: comment,
+            date: new Date(),
+          },
+        ];
+
+    const newProductObject = { ...productObj, comment: commentArray };
+    products[productIdx] = newProductObject;
+
+    updateProducts([...products, newProductObject]);
+  };
 
   if (!productObj) return <Container>No found</Container>;
   // product -> [{title:'someorf",date:new Date()}]
@@ -26,7 +55,7 @@ function ProductDetails() {
     <Container className="py-5">
       <Stack direction="horizontal" gap={3}>
         <ProductCard
-          id={productObj.id}
+          _id={productObj._id}
           title={productObj.title}
           img={productObj.img}
           desc={productObj.desc}
@@ -41,28 +70,10 @@ function ProductDetails() {
               setComment(event.target.value);
             }}
           />{" "}
-          <Button
-            variant="primary"
-            onClick={() => {
-              const commentArray = productObj.comment;
-              if (commentArray) {
-                productObj.comment.push({
-                  title: comment,
-                  date: new Date(),
-                });
-              } else {
-                productObj.comment = [
-                  {
-                    title: comment,
-                    date: new Date(),
-                  },
-                ];
-              }
-            }}
-          >
+          <Button variant="primary" onClick={addComment}>
             Add comment
           </Button>
-          {productObj.comment.map((item) => {
+          {productObj.comment?.map((item) => {
             return <p>{item.title}</p>;
           })}
         </Stack>

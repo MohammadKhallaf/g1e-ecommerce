@@ -6,6 +6,8 @@ import { Button, Col, Container, Row, Stack } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
 import { useContext, useMemo, useState } from "react";
 import { CartContext } from "../store/CartContext";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const radios = [
   { name: "Cash", value: "1" },
@@ -15,6 +17,7 @@ const radios = [
 
 function CartPage() {
   const [radioValue, setRadioValue] = useState("1");
+  const navigate = useNavigate();
 
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
@@ -63,22 +66,34 @@ function CartPage() {
       <h4 className="mt-2">Details</h4>
       <p>{sum}EGP</p>
       <hr />
-      <ButtonGroup>
-        {radios.map((radio, idx) => (
-          <ToggleButton
-            key={idx}
-            id={`radio-${idx}`}
-            type="radio"
-            variant={idx % 2 ? "outline-success" : "outline-danger"}
-            name="radio"
-            value={radio.value}
-            checked={radioValue === radio.value}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
-          >
-            {radio.name}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
+      <Stack gap={3}>
+        <ButtonGroup>
+          {radios.map((radio, idx) => (
+            <ToggleButton
+              key={idx}
+              id={`radio-${idx}`}
+              type="radio"
+              variant={idx % 2 ? "outline-success" : "outline-danger"}
+              name="radio"
+              value={radio.value}
+              checked={radioValue === radio.value}
+              onChange={(e) => setRadioValue(e.currentTarget.value)}
+            >
+              {radio.name}
+            </ToggleButton>
+          ))}
+        </ButtonGroup>
+
+        <Button
+          variant="success"
+          onClick={() => {
+            if (sum > 0) navigate("/checkout");
+            else toast.error("Your cart is empty!");
+          }}
+        >
+          Checkout
+        </Button>
+      </Stack>
     </Container>
   );
 }

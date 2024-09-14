@@ -147,3 +147,40 @@ useEffect(()=>{
 # 13 sept task
 1- fix add comment
 2-
+
+___
+
+## Projects
+- Meals -> reciepe -> [add meal] -> products , filter
+- Electronics
+- Bookstore -> categories -> cart
+- task flow 
+  - admin / employee
+- E learnings
+- Cars
+- Resturant
+
+Pages 
+
+- each member -> one page UI & logic
+
+2 / 2 
+
+- 2 -> UI (x,y) || 2 -> logic (z,r)
+- 2 -> UI (z,r) || 2 -> logic (x,y)
+
+|> gallery & cart     ->
+|> gallery & wishlist ->
+
+
+## 14 sept. 
+- products provider && comments fix
+- axios && BE integration --> `npm install axios`
+
+## Protected Route
+- Protected Component `element={user ? <CheckoutPage /> : <LoginPage />}`
+-
+```jsx 
+if (user) return children; // routes --> render
+  return <Navigate to="/login" />;
+  ```

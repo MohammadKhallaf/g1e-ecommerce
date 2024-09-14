@@ -8,6 +8,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import WishlistPage from "./pages/WishlistPage";
 import ProductDetails from "./components/ProductDetails";
+import ProductsProvider from "./store/ProductsContext";
+import CheckoutPage from "./pages/CheckoutPage";
+import { Toaster } from "react-hot-toast";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthProvider from "./store/AuthContext";
 // cart context
 
 // change the local storage data
@@ -19,6 +25,7 @@ import ProductDetails from "./components/ProductDetails";
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [user, setUser] = useState();
 
   const addToWishlist = (product) => {
     // I should not add quantity
@@ -128,28 +135,42 @@ function App() {
   }, []);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        wishlist,
-        addToWishlist,
-        removeFromWishlist,
-      }}
-    >
-      <BrowserRouter>
-        <div className="App">
-          <CustomNavbar />
-          <Routes>
-            <Route path="product/:id" element={<ProductDetails />} />
-            <Route path="wishlist" element={<WishlistPage />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="/" element={<ProductList />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </CartContext.Provider>
+    <AuthProvider>
+      <ProductsProvider>
+        <CartContext.Provider
+          value={{
+            cart,
+            addToCart,
+            removeFromCart,
+            wishlist,
+            addToWishlist,
+            removeFromWishlist,
+          }}
+        >
+          <BrowserRouter>
+            <div className="App">
+              <CustomNavbar />
+              <Routes>
+                <Route path="product/:id" element={<ProductDetails />} />
+                <Route path="wishlist" element={<WishlistPage />} />
+                <Route
+                  path="checkout"
+                  element={
+                    <ProtectedRoute>
+                      <CheckoutPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="cart" element={<CartPage />} />
+                <Route path="/" element={<ProductList />} />
+              </Routes>
+              <Toaster />
+            </div>
+          </BrowserRouter>
+        </CartContext.Provider>
+      </ProductsProvider>
+    </AuthProvider>
   );
 }
 
