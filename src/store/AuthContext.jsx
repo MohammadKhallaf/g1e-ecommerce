@@ -7,6 +7,8 @@ export const useAuth = () => {
   return ctxValue;
 };
 
+// {_id , username , password ,token}
+
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const userDataLocal = localStorage.getItem("user");

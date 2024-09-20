@@ -8,7 +8,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import ProductList from "./pages/ProductList";
 import WishlistPage from "./pages/WishlistPage";
-import AuthProvider from "./store/AuthContext";
+import AuthProvider, { useAuth } from "./store/AuthContext";
 import CartProvider from "./store/CartContext";
 import ProductsProvider from "./store/ProductsContext";
 import WishlistProvider from "./store/WishlistContext";
@@ -23,6 +23,8 @@ import "./App.css";
  */
 
 function App() {
+  const { user } = useAuth();
+
   return (
     <AuthProvider>
       <ProductsProvider>
@@ -30,7 +32,7 @@ function App() {
           <WishlistProvider>
             <BrowserRouter>
               <div className="App">
-                <CustomNavbar />
+                {user ? <CustomNavbar /> : null}
                 <Routes>
                   <Route path="product/:id" element={<ProductDetails />} />
                   <Route path="wishlist" element={<WishlistPage />} />

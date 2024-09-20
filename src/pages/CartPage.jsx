@@ -5,8 +5,9 @@ import Image from "react-bootstrap/Image";
 import ListGroup from "react-bootstrap/ListGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../store/CartContext";
+import { useAuth } from "../store/AuthContext";
 
 const radios = [
   { name: "Cash", value: "1" },
@@ -15,6 +16,8 @@ const radios = [
 ];
 
 function CartPage() {
+  const { user } = useAuth();
+
   const [radioValue, setRadioValue] = useState("1");
   const navigate = useNavigate();
 
@@ -57,6 +60,7 @@ function CartPage() {
     ));
   }, [cart]);
 
+  // condition ? if true : if false
   return (
     <Container className="pt-5">
       <ListGroup as="ol" className="gap-4">
@@ -83,15 +87,26 @@ function CartPage() {
           ))}
         </ButtonGroup>
 
-        <Button
-          variant="success"
-          onClick={() => {
-            if (sum > 0) navigate("/checkout");
-            else toast.error("Your cart is empty!");
-          }}
-        >
-          Checkout
-        </Button>
+        {user ? (
+          <Button
+            variant="success"
+            onClick={() => {
+              if (sum > 0) navigate("/checkout");
+              else toast.error("Your cart is empty!");
+            }}
+          >
+            Checkout
+          </Button>
+        ) : (
+          <Button
+            variant="warning"
+            as={Link}
+            to="/login"
+            // login
+          >
+            Login To Proceed
+          </Button>
+        )}
       </Stack>
     </Container>
   );
