@@ -8,34 +8,45 @@ import { useAuth } from "../store/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import LoginSVG from "../assets/robot-checking-user-profile.svg";
 
-function LoginPage() {
+function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const navigate = useNavigate();
 
   const { login } = useAuth();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // localhost:5000/api/auth/login
-    // POST
-    // username,password
-    axios
-      .post("http://localhost:5000/api/auth/login", {
-        username,
-        password,
-      })
-      .then((response) => {
-        console.log(response.data);
-        login(response.data.user);
-        toast.success("Logged in successfully!");
-        navigate("/cart");
-      })
-      .catch((error) => {
-        toast.error("Something went wrong!");
-      });
-  };
 
+    // validate password === confirm password
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords must match");
+    } else {
+      // 5000/api/auth/login
+      // POST
+      // username,password
+      axios
+        .post("http://localhost:5000/api/auth/register", {
+          username,
+          password,
+        })
+        .then((response) => {
+          console.log(response.data);
+
+          toast.success("Registered!, Login to proceed");
+          navigate("/login");
+        })
+        .catch((error) => {
+          toast.error("Something went wrong!");
+        });
+    }
+
+    // "http://localhost:5000/api/auth/register"
+    // toast.success("Registered");
+  };
   return (
     <Container fluid style={{ height: "100vh" }}>
       <Row className="h-100">
@@ -47,7 +58,7 @@ function LoginPage() {
           <img src={LoginSVG} alt="" />
         </Col>
         <Col className="d-flex flex-column gap-4 justify-content-center align-items-center">
-          <h3>Login page</h3>
+          <h3>Register</h3>
           <Form onSubmit={handleSubmit} style={{ minWidth: "300px" }}>
             <Form.Group className="mb-3" controlId="formUserName">
               <Form.Label>Username</Form.Label>
@@ -70,6 +81,16 @@ function LoginPage() {
                 }}
               />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Re-enter Password"
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                }}
+              />
+            </Form.Group>
 
             <Button variant="primary" type="submit">
               Submit
@@ -78,8 +99,8 @@ function LoginPage() {
               Home
             </Button>
           </Form>
-          <Button variant="link" type="button" as={Link} to="/register">
-            Register a new account
+          <Button variant="link" type="button" as={Link} to="/login">
+            Already have an account?{" "}
           </Button>
         </Col>
       </Row>
@@ -87,4 +108,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

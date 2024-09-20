@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import CustomNavbar from "./components/CustomNavbar";
 import ProductDetails from "./components/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -14,6 +14,8 @@ import ProductsProvider from "./store/ProductsContext";
 import WishlistProvider from "./store/WishlistContext";
 
 import "./App.css";
+import GuestLayout from "./pages/GuestLayout";
+import RegisterPage from "./pages/RegisterPage";
 // cart context
 
 // change the local storage data
@@ -32,22 +34,24 @@ function App() {
           <WishlistProvider>
             <BrowserRouter>
               <div className="App">
-                {user ? <CustomNavbar /> : null}
-                <Routes>
-                  <Route path="product/:id" element={<ProductDetails />} />
-                  <Route path="wishlist" element={<WishlistPage />} />
-                  <Route
-                    path="checkout"
-                    element={
-                      <ProtectedRoute>
-                        <CheckoutPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="cart" element={<CartPage />} />
-                  <Route path="/" element={<ProductList />} />
-                </Routes>
+                <GuestLayout>
+                  <Routes>
+                    <Route path="product/:id" element={<ProductDetails />} />
+                    <Route path="wishlist" element={<WishlistPage />} />
+                    <Route
+                      path="checkout"
+                      element={
+                        <ProtectedRoute>
+                          <CheckoutPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="register" element={<RegisterPage />} />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="cart" element={<CartPage />} />
+                    <Route path="/" element={<ProductList />} />
+                  </Routes>
+                </GuestLayout>
                 <Toaster />
               </div>
             </BrowserRouter>

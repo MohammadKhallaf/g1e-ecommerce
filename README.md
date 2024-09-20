@@ -184,3 +184,6 @@ Pages
 if (user) return children; // routes --> render
   return <Navigate to="/login" />;
   ```
+
+- component composition -> {children}
+  - layouts
