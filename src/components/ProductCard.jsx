@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Stack from "react-bootstrap/Stack";
-import { CartContext } from "../store/CartContext";
-import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { useCart } from "../store/CartContext";
+import { useWishlist } from "../store/WishlistContext";
 
 function ProductCard({ _id, title, img, desc, price }) {
-  const { cart, wishlist, addToCart, addToWishlist, removeFromWishlist } =
-    useContext(CartContext);
+  const { addToCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   // 1. wishlist -> product ??
   const checkIfInWishlist = () => {

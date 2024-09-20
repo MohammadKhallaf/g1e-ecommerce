@@ -1,10 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
-import { useContext } from "react";
-import { ProductsContext } from "../store/ProductsContext";
+import { useProducts } from "../store/ProductsContext";
 
 function ProductList() {
-  const { products } = useContext(ProductsContext);
+  const { products } = useProducts();
   return (
     <Container className="pt-5">
       <Row xs={1} md={2} lg={3} className="g-4">

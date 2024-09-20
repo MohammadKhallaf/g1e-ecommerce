@@ -5,15 +5,15 @@ import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
+import { useState } from "react";
 import { Container, Stack } from "react-bootstrap";
-import { useContext, useState } from "react";
-import { ProductsContext } from "../store/ProductsContext";
+import { useProducts } from "../store/ProductsContext";
 
 function ProductDetails() {
   // read the parameter from the url
   const params = useParams();
   const [comment, setComment] = useState("");
-  const { products, updateProducts } = useContext(ProductsContext);
+  const { products, updateProducts } = useProducts();
 
   // data - included -> data
   // product list -> get one item from the list

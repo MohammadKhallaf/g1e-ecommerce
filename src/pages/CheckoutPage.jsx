@@ -1,9 +1,9 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { Button, Container, Stack } from "react-bootstrap";
-import { CartContext } from "../store/CartContext";
+import { useCart } from "../store/CartContext";
 
 function CheckoutPage() {
-  const { cart } = useContext(CartContext);
+  const { cart } = useCart();
 
   const sum = useMemo(() => {
     // useMemo -> return value
